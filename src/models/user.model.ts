@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import config from 'config';
 
-type IUser = {
+export type IUser = {
   email: string;
   name: string;
   password: string;

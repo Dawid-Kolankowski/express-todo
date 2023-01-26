@@ -11,7 +11,8 @@
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "quotes": ["error", "single"],
-    "no-multiple-empty-lines": "error"
+    "no-multiple-empty-lines": "error",
+    "@typescript-eslint/ban-types": false
   },
 
   "env": {
