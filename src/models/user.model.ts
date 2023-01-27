@@ -4,7 +4,6 @@ import config from 'config';
 
 export type IUser = {
   email: string;
-  name: string;
   password: string;
 };
 
