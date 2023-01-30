@@ -7,7 +7,11 @@ export type IUser = {
   password: string;
 };
 
-type IUserDocument = IUser & mongoose.Document & mongoose.SchemaTimestampsConfig;
+type IUserDocument = {
+  comparePassword(password: string): Promise<Boolean>;
+} & IUser &
+  mongoose.Document &
+  mongoose.SchemaTimestampsConfig;
 
 const userSchema = new mongoose.Schema(
   {
