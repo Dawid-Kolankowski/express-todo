@@ -3,5 +3,7 @@ export default {
   dbUri: 'mongodb://localhost:27017/todo-api',
   saltRounds: 10,
   jwtSecret: 'superSecretKey',
-  jwtExpiration: '30d',
+  jwtRefreshSecret: 'superSecretRefreshKey',
+  jwtExpiration: '1d',
+  jwtRefreshExpiration: '30d',
 };

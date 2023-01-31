@@ -6,5 +6,5 @@ import { login } from '../services/auth.service';
 export const loginHandler = async (req: Request<{}, {}, ILoginInput>, res: Response) => {
   const input = req.body;
   const token = await login(input);
-  res.send({ token: token });
+  res.send({ ...token });
 };

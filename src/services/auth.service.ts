@@ -1,7 +1,7 @@
 import { ILoginInput } from '../schema/auth.schema';
 import UserModel from '../models/user.model';
 import { UnauthenticatedError } from '../errors';
-import jwtSign from '../utils/jwtSign';
+import { jwtSign } from '../utils/jwtUtils';
 
 export const login = async (input: ILoginInput) => {
   const { email, password } = input;
@@ -17,7 +17,8 @@ export const login = async (input: ILoginInput) => {
     throw new UnauthenticatedError('Invalid credentials');
   }
 
-  const token = jwtSign({ email, id: user._id });
+  const accessToken = jwtSign({ email, id: user._id }, 'jwtSecret', 'jwtExpiration');
+  const refreshToken = jwtSign({ email, id: user._id }, 'jwtRefreshSecret', 'jwtRefreshExpiration');
 
-  return token;
+  return { accessToken, refreshToken };
 };
