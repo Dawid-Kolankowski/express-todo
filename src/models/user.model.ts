@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import config from 'config';
+import generateHash from '../utils/generateHash';
 
 export type IUser = {
   email: string;
@@ -33,10 +33,7 @@ userSchema.pre('save', async function (next) {
     return next();
   }
 
-  const salt = await bcrypt.genSalt(config.get<number>('saltRounds'));
-  const hash = await bcrypt.hashSync(this.password, salt);
-
-  this.password = hash;
+  this.password = await generateHash(this.password);
 
   return next();
 });
