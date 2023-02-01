@@ -1,8 +1,8 @@
+import { IUserTokenDecoded } from './../models/user.model';
+import { createTokens } from './../utils/jwtUtils';
 import { ILoginInput } from '../schema/auth.schema';
 import UserModel from '../models/user.model';
 import { UnauthenticatedError } from '../errors';
-import { jwtSign } from '../utils/jwtUtils';
-
 export const login = async (input: ILoginInput) => {
   const { email, password } = input;
   const user = await UserModel.findOne({ email });
@@ -17,8 +17,22 @@ export const login = async (input: ILoginInput) => {
     throw new UnauthenticatedError('Invalid credentials');
   }
 
-  const accessToken = jwtSign({ email, id: user._id }, 'jwtSecret', 'jwtExpiration');
-  const refreshToken = jwtSign({ email, id: user._id }, 'jwtRefreshSecret', 'jwtRefreshExpiration');
+  const tokens = createTokens(email, user._id);
 
-  return { accessToken, refreshToken };
+  return { ...tokens };
 };
+
+// export const refreshToken = async (input: IRefreshTokenInput) => {
+//   try {
+//     const { refreshToken } = input;
+
+//     const jwtSecret = config.get<string>('jwtSecret');
+//     const { id, email } = jwt.verify(refreshToken, jwtSecret) as IUserTokenDecoded;
+
+//     const tokens = createTokens(email, id);
+
+//     return { ...tokens };
+//   } catch (e) {
+//     throw new UnauthenticatedError('Not authenticated');
+//   }
+// };

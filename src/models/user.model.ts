@@ -7,6 +7,11 @@ export type IUser = {
   password: string;
 };
 
+export type IUserTokenDecoded = {
+  email: string;
+  id: string;
+};
+
 type IUserDocument = {
   comparePassword(password: string): Promise<Boolean>;
 } & IUser &

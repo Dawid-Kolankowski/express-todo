@@ -11,4 +11,13 @@ export const loginSchema = object({
   }),
 });
 
+export const refreshTokenSchema = object({
+  body: object({
+    refreshToken: string({
+      required_error: 'Refresh token is required',
+    }),
+  }),
+});
+
 export type ILoginInput = TypeOf<typeof loginSchema>['body'];
+export type IRefreshTokenInput = TypeOf<typeof refreshTokenSchema>['body'];
