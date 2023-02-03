@@ -6,7 +6,7 @@ export const jwtSign = (payload: string | object | Buffer, secretConfig: string,
   const jwtExpiration = config.get<string>(expirationConfig);
 
   const token = jwt.sign(payload, jwtSecret, {
-    expiresIn: jwtExpiration,
+    expiresIn: jwtExpiration + 'd',
   });
 
   return token;

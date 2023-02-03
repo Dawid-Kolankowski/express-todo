@@ -4,6 +4,6 @@ export default {
   saltRounds: 10,
   jwtSecret: 'superSecretKey',
   jwtRefreshSecret: 'superSecretRefreshKey',
-  jwtExpiration: '1d',
-  jwtRefreshExpiration: '30d',
+  jwtExpiration: '1', //days
+  jwtRefreshExpiration: '30', //days
 };

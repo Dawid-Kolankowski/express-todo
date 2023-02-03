@@ -1,8 +1,11 @@
-import { IUserTokenDecoded } from './../models/user.model';
 import { createTokens } from './../utils/jwtUtils';
-import { ILoginInput } from '../schema/auth.schema';
-import UserModel from '../models/user.model';
+import { ILoginInput, IRefreshTokenInput } from '../schema/auth.schema';
+import UserModel, { IUserTokenDecoded } from '../models/user.model';
 import { UnauthenticatedError } from '../errors';
+import RefreshTokenModel from '../models/auth.model';
+import jwt from 'jsonwebtoken';
+import config from 'config';
+
 export const login = async (input: ILoginInput) => {
   const { email, password } = input;
   const user = await UserModel.findOne({ email });
@@ -17,22 +20,34 @@ export const login = async (input: ILoginInput) => {
     throw new UnauthenticatedError('Invalid credentials');
   }
 
-  const tokens = createTokens(email, user._id);
+  const { accessToken, refreshToken } = createTokens(email, user.id);
 
-  return { ...tokens };
+  const refreshTokenDB = await RefreshTokenModel.findOne({ user: user.id });
+
+  if (!refreshTokenDB) {
+    await RefreshTokenModel.create({ refreshToken, user });
+  } else {
+    await refreshTokenDB.updateOne({ refreshToken });
+  }
+
+  return { accessToken, refreshToken };
 };
 
-// export const refreshToken = async (input: IRefreshTokenInput) => {
-//   try {
-//     const { refreshToken } = input;
+export const refreshToken = async (input: IRefreshTokenInput) => {
+  const { refreshToken } = input;
 
-//     const jwtSecret = config.get<string>('jwtSecret');
-//     const { id, email } = jwt.verify(refreshToken, jwtSecret) as IUserTokenDecoded;
+  const refreshTokenDB = await RefreshTokenModel.findOne({ refreshToken });
 
-//     const tokens = createTokens(email, id);
+  if (!refreshTokenDB) {
+    throw new UnauthenticatedError('Invalid token');
+  }
 
-//     return { ...tokens };
-//   } catch (e) {
-//     throw new UnauthenticatedError('Not authenticated');
-//   }
-// };
+  const jwtRefreshSecret = config.get<string>('jwtRefreshSecret');
+  const { id, email } = jwt.verify(refreshToken, jwtRefreshSecret) as IUserTokenDecoded;
+
+  const tokens = createTokens(email, id);
+
+  await refreshTokenDB.updateOne({ refreshToken: tokens.refreshToken });
+
+  return tokens;
+};

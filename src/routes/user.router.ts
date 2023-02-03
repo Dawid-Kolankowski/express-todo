@@ -5,6 +5,6 @@ import validateResource from '../utils/validateResource';
 
 const router = express.Router();
 
-router.route('/').post(validateResource(createUserSchema), createUserHandler);
+router.route('/register').post(validateResource(createUserSchema), createUserHandler);
 
 export default router;
