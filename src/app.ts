@@ -21,8 +21,6 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);
 
 app.get('/api/v1/protected', isAuthenticated, (req: Request<IUser, {}, {}>, res: Response) => {
-  console.log(res.locals);
-
   res.send('ok');
 });
 
