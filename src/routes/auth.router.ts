@@ -3,7 +3,7 @@ import { refreshTokenSchema } from './../schema/auth.schema';
 import express from 'express';
 import { loginHandler } from '../controllers/auth.controller';
 import { loginSchema } from '../schema/auth.schema';
-import validateResource from '../utils/validateResource';
+import validateResource from '../middleware/validateResource';
 
 const router = express.Router();
 
