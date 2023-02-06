@@ -12,6 +12,10 @@ export type IUserTokenDecoded = {
   id: string;
 };
 
+export type IUserLocals = {
+  user: IUserTokenDecoded;
+};
+
 type IUserDocument = {
   comparePassword(password: string): Promise<Boolean>;
 } & IUser &

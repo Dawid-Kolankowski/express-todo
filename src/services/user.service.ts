@@ -1,11 +1,8 @@
+import { omit } from 'lodash';
 import UserModel, { IUser } from '../models/user.model';
-import { CustomAPIError } from '../errors';
 
 export const createUser = async (input: IUser) => {
-  try {
-    const user = await UserModel.create(input);
-    return user;
-  } catch (e: any) {
-    throw new CustomAPIError(e);
-  }
+  const user = await UserModel.create(input);
+
+  return omit(user.toJSON(), ['password', 'createdAt', 'updatedAt', '__v']);
 };

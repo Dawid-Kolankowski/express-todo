@@ -1,7 +1,4 @@
-import { refreshToken } from './../services/auth.service';
-import mongoose, { Schema } from 'mongoose';
-import generateHash from '../utils/generateHash';
-import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 import config from 'config';
 
 export type IRefreshToken = {

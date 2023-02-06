@@ -4,15 +4,16 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "unused-imports"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
 
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "unused-imports/no-unused-imports": "error",
     "quotes": ["error", "single"],
     "no-multiple-empty-lines": "error",
-    "@typescript-eslint/ban-types": false
+    "@typescript-eslint/ban-types": 0
   },
 
   "env": {

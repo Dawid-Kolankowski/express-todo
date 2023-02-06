@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import logger from '../utils/logger';
 
 const errorHandlerMiddleware = (err: any, _req: Request, res: Response, _next: NextFunction) => {
-  let customError = {
+  const customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     message: err.message || 'Something went wrong try again later',
   };

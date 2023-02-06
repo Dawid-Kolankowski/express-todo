@@ -1,5 +1,4 @@
 import mongoose, { ObjectId, Schema } from 'mongoose';
-import config from 'config';
 
 export type ITask = {
   title: string;
@@ -8,7 +7,7 @@ export type ITask = {
   user: ObjectId;
 };
 
-type ITaskDocument = ITask & mongoose.Document;
+export type ITaskDocument = ITask & mongoose.Document;
 
 const taskSchema = new mongoose.Schema(
   {

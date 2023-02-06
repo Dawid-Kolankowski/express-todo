@@ -11,3 +11,4 @@ export const taskSchema = object({
 });
 
 export type ITaskInput = TypeOf<typeof taskSchema>['body'];
+export type ITaskInputWithUser = ITaskInput & { user: string };

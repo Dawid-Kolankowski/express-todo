@@ -28,6 +28,7 @@
     "express-async-errors": "^3.1.1",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
     "mongoose": "^6.8.4",
     "pino": "^8.8.0",
     "zod": "^3.20.2"
@@ -39,6 +40,7 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.15",
     "@types/jsonwebtoken": "^9.0.1",
+    "@types/lodash": "^4.14.191",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.11.18",
     "@types/pino": "^7.0.5",
@@ -46,6 +48,7 @@
     "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "pino-pretty": "^9.1.1",
     "prettier": "^2.8.3",
     "ts-node-dev": "^2.0.0",
