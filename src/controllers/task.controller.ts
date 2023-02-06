@@ -1,4 +1,4 @@
-import { updateTask } from './../services/task.service';
+import { deleteTask, updateTask } from './../services/task.service';
 import { ITaskInput, ITaskInputWithUser } from './../schema/task.schema';
 import { IUserLocals } from './../models/user.model';
 import { Request, Response } from 'express';
@@ -26,5 +26,13 @@ export const updateTaskHandler = async (req: Request<{ id: string }, {}, ITaskIn
   const { user } = res.locals;
 
   const task = await updateTask(id, input, user);
+  res.send(task);
+};
+
+export const deleteTaskHandler = async (req: Request<{ id: string }, {}, {}>, res: Response<{}, IUserLocals>) => {
+  const { id } = req.params;
+  const { user } = res.locals;
+
+  const task = await deleteTask(id, user);
   res.send(task);
 };

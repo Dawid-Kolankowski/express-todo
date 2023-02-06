@@ -32,5 +32,22 @@ export const updateTask = async (id: string, input: ITaskInputWithUser, user: IU
   if (!updatedTask) {
     throw new Error('Unexpected error occured');
   }
+
   return updatedTask;
+};
+
+export const deleteTask = async (id: string, user: IUserTokenDecoded): Promise<ITaskDocument> => {
+  const task = await TaskModel.findById(id);
+
+  if (!task) {
+    throw new NotFoundError('Resource not found');
+  }
+
+  if (String(task.user) !== user.id) {
+    throw new UnauthorizedError('User is not authorized to perform operation on this resource');
+  }
+
+  await task.delete();
+
+  return task;
 };
